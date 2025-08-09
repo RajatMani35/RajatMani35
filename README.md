@@ -1,6 +1,6 @@
 - 👋 Hi, I’m @RajatMani
-- 👀 I’m interested in competitive coding
-- 🌱 I’m currently learning DSA using C++
+- 👀 I’m interested in 
+- 🌱 I’m currently learning DSA 
 - 💞️ I’m looking to collaborate on ...
 - 📫 How to reach me ...
 - 😄 Pronouns: he/him
