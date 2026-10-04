@@ -1,12 +1,83 @@
-- 👋 Hi, I’m @PixelatedGuy
-- 👀 I’m interested in Distributed Backend System
-- 🌱 I’m currently learning Spring Boot
-- 💞️ I’m looking to collaborate on ...
-- 📫 How to reach me ...
-- 😄 Pronouns: he/him
-- ⚡ Fun fact: Java was named after coffee.
+<div align="center">
 
-<!---
-RajatMani35/RajatMani35 is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
-You can click the Preview link to take a look at your changes.
---->
+<h3>
+
+<code>rajat@github ~ $ ./[contributions.sh](http://contributions.sh)</code>
+
+</h3>
+
+<img
+
+src="./rajat-heatmap.svg"
+
+width="860"
+
+/>
+
+<br>
+
+<br>
+
+<table>
+
+<tr>
+
+<td width="45%" align="center">
+
+<img
+
+src="./rajat-ascii.svg"
+
+width="380"
+
+/>
+
+</td>
+
+<td width="55%" align="center">
+
+<img
+
+src="./rajat-info.svg"
+
+width="500"
+
+/>
+
+</td>
+
+</tr>
+
+</table>
+
+<br>
+
+<h3>
+
+<code>rajat@github ~ $ connect</code>
+
+</h3>
+
+<a href="[https://github.com/RajatMani35](https://github.com/RajatMani35)">
+
+GitHub
+
+</a>
+
+&nbsp;&nbsp;•&nbsp;&nbsp;
+
+<a href="[https://leetcode.com/u/RajatMani/](https://leetcode.com/u/RajatMani/)">
+
+LeetCode
+
+</a>
+
+&nbsp;&nbsp;•&nbsp;&nbsp;
+
+<a href="[https://www.linkedin.com/in/rajat-tripathi-663b27312/](https://www.linkedin.com/in/rajat-tripathi-663b27312/)">
+
+LinkedIn
+
+</a>
+
+</div>

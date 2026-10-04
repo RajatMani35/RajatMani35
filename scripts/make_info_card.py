@@ -1,0 +1,143 @@
+from pathlib import Path
+
+
+OUTPUT = Path("rajat-info.svg")
+
+
+WIDTH = 520
+HEIGHT = 330
+
+
+svg = f'''<svg
+xmlns="http://www.w3.org/2000/svg"
+width="{WIDTH}"
+height="{HEIGHT}"
+viewBox="0 0 {WIDTH} {HEIGHT}">
+
+<rect
+    width="100%"
+    height="100%"
+    rx="20"
+    fill="#0d1117"
+    stroke="#30363d"
+    stroke-width="2"
+/>
+
+<text
+    x="28"
+    y="38"
+    fill="#39d353"
+    font-family="monospace"
+    font-size="16"
+    font-weight="bold">
+    rajat@github ~ $ neofetch
+</text>
+
+
+<!-- Name -->
+
+<text
+    x="28"
+    y="82"
+    fill="#ffffff"
+    font-family="monospace"
+    font-size="20"
+    font-weight="bold">
+    Rajat Mani Tripathi
+</text>
+
+
+<!-- Role -->
+
+<text
+    x="28"
+    y="120"
+    fill="#8b949e"
+    font-family="monospace"
+    font-size="15">
+    BTech AI &amp; ML Student
+</text>
+
+
+<!-- Focus -->
+
+<text
+    x="28"
+    y="155"
+    fill="#8b949e"
+    font-family="monospace"
+    font-size="15">
+    Backend + AI/ML
+</text>
+
+
+<!-- Stack -->
+
+<text
+    x="28"
+    y="190"
+    fill="#8b949e"
+    font-family="monospace"
+    font-size="15">
+    Java • Spring Boot • Python
+</text>
+
+<text
+    x="28"
+    y="215"
+    fill="#8b949e"
+    font-family="monospace"
+    font-size="15">
+    PostgreSQL • Redis
+</text>
+
+
+<!-- Learning -->
+
+<text
+    x="28"
+    y="260"
+    fill="#8b949e"
+    font-family="monospace"
+    font-size="15">
+    Learning:
+</text>
+
+<text
+    x="28"
+    y="285"
+    fill="#39d353"
+    font-family="monospace"
+    font-size="15">
+    DSA • System Design • Spring Boot
+</text>
+
+
+<!-- Cursor -->
+
+<rect
+    x="28"
+    y="300"
+    width="9"
+    height="18"
+    fill="#39d353">
+
+    <animate
+        attributeName="opacity"
+        values="1;0;1"
+        dur="1s"
+        repeatCount="indefinite"
+    />
+
+</rect>
+
+</svg>
+'''
+
+
+OUTPUT.write_text(
+    svg,
+    encoding="utf-8"
+)
+
+print(f"Created {OUTPUT}")
