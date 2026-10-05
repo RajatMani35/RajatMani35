@@ -1,6 +1,6 @@
 <div align="center">
 
-<h3><code>rajat@github ~ $ ./contributions.sh</code></h3>
+<h3><code>rajat@github /contributions.sh</code></h3>
 
 <img src="./rajat-heatmap.svg" width="860"/>
 
