@@ -265,7 +265,7 @@
                     width="13"
                     height="13"
                     rx="3"
-                    fill="#006d32"
+                    fill="#0e4429"
                     opacity="0">
 
                     <title>
@@ -7515,7 +7515,7 @@
                     width="13"
                     height="13"
                     rx="3"
-                    fill="#39d353"
+                    fill="#006d32"
                     opacity="0">
 
                     <title>
@@ -7590,7 +7590,7 @@
                     width="13"
                     height="13"
                     rx="3"
-                    fill="#006d32"
+                    fill="#0e4429"
                     opacity="0">
 
                     <title>
@@ -8165,7 +8165,7 @@
                     width="13"
                     height="13"
                     rx="3"
-                    fill="#006d32"
+                    fill="#0e4429"
                     opacity="0">
 
                     <title>
@@ -9140,7 +9140,7 @@
                     width="13"
                     height="13"
                     rx="3"
-                    fill="#39d353"
+                    fill="#006d32"
                     opacity="0">
 
                     <title>
@@ -9165,11 +9165,11 @@
                     width="13"
                     height="13"
                     rx="3"
-                    fill="#26a641"
+                    fill="#006d32"
                     opacity="0">
 
                     <title>
-                        3 contributions on 2026-10-05
+                        4 contributions on 2026-10-05
                     </title>
 
                     <animate
@@ -9190,11 +9190,11 @@
                     width="13"
                     height="13"
                     rx="3"
-                    fill="#161b22"
+                    fill="#39d353"
                     opacity="0">
 
                     <title>
-                        0 contributions on 2026-10-06
+                        13 contributions on 2026-10-06
                     </title>
 
                     <animate
@@ -9386,9 +9386,9 @@
             font-family="monospace"
             font-size="15">
 
-            18 contributions
-            • 2 day current streak
-            • 2 day longest streak
+            32 contributions
+            • 3 day current streak
+            • 3 day longest streak
 
         </text>
         
