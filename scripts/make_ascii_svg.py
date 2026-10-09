@@ -1,285 +1,200 @@
+
+from pathlib import Path
+from html import escape
+
 from PIL import Image, ImageOps, ImageEnhance
-import html
-import sys
 
 
 # ============================================================
-# SETTINGS
+# CONFIGURATION
 # ============================================================
 
-# Bright -> sparse
-# Dark -> dense
-RAMP = " .:-=+*#%@"
+OUTPUT_FILE = Path("rajat-ascii.svg")
 
-# ASCII resolution
-COLS = 65
-ROWS = 55
+# Prefer the processed image, then fall back to original.
+POSSIBLE_INPUTS = [
+    Path("source-prepped.png"),
+    Path("source-photo.png"),
+    Path("source-photo.jpg"),
+    Path("source-photo.jpeg"),
+]
 
-# Character dimensions
-CHAR_WIDTH = 10
-CHAR_HEIGHT = 14
+# Higher values create denser, more detailed ASCII art.
+COLS = 110
+ROWS = 75
 
-# Animation
-ROW_DELAY = 0.065
-ROW_DURATION = 0.55
+# Character dimensions in SVG pixels.
+CHAR_WIDTH = 8
+CHAR_HEIGHT = 11
+FONT_SIZE = 10
 
-# Colors
-BACKGROUND = "#ffffff"
-TEXT_COLOR = "#222222"
-CURSOR_COLOR = "#222222"
+# White text on a black background.
+BACKGROUND = "#000000"
+TEXT_COLOR = "#ffffff"
+CURSOR_COLOR = "#ffffff"
+
+# From sparse characters to dense characters.
+# Dark parts of the source image become denser white text.
+RAMP = "  .,:-~=+*#%@"
+
+# Image processing.
+CONTRAST = 1.5
+SHARPNESS = 1.2
+
+# Animation timing.
+ROW_DELAY = 0.035
+ROW_DURATION = 0.35
 
 
 # ============================================================
-# IMAGE -> ASCII
+# FIND INPUT IMAGE
+# ============================================================
+
+def find_input_image():
+    for path in POSSIBLE_INPUTS:
+        if path.exists():
+            print(f"Using image: {path}")
+            return path
+
+    raise FileNotFoundError(
+        "Could not find source-prepped.png or source-photo.png. "
+        "Place your image in the project root."
+    )
+
+
+# ============================================================
+# CROP IMAGE TO A CENTERED PORTRAIT
+# ============================================================
+
+def center_crop(image, target_ratio):
+    width, height = image.size
+    current_ratio = width / height
+
+    if current_ratio > target_ratio:
+        new_width = int(height * target_ratio)
+        left = (width - new_width) // 2
+        image = image.crop(
+            (left, 0, left + new_width, height)
+        )
+    elif current_ratio < target_ratio:
+        new_height = int(width / target_ratio)
+        top = (height - new_height) // 2
+        image = image.crop(
+            (0, top, width, top + new_height)
+        )
+
+    return image
+
+
+# ============================================================
+# CONVERT IMAGE TO ASCII
 # ============================================================
 
 def image_to_ascii(image_path):
+    image = Image.open(image_path).convert("RGB")
 
-    image = Image.open(image_path).convert("L")
-
-    print(f"Original image: {image.width} x {image.height}")
-
-    width, height = image.size
-
-    # --------------------------------------------------------
-    # CROP
-    # --------------------------------------------------------
-
-    left = int(width * 0.28)
-    right = int(width * 0.72)
-
-    top = int(height * 0.01)
-    bottom = int(height * 0.99)
-
-    image = image.crop(
-        (left, top, right, bottom)
+    # Match the output's approximate character aspect ratio.
+    target_ratio = (
+        COLS * CHAR_WIDTH
+        / (ROWS * CHAR_HEIGHT)
     )
 
-    print(
-        f"Cropped image: {image.width} x {image.height}"
-    )
+    image = center_crop(image, target_ratio)
 
-    # --------------------------------------------------------
-    # Improve contrast
-    # --------------------------------------------------------
+    # Convert to grayscale and improve contrast.
+    image = ImageOps.grayscale(image)
+    image = ImageOps.autocontrast(image)
 
-    image = ImageOps.autocontrast(
-        image,
-        cutoff=1
-    )
+    image = ImageEnhance.Contrast(image).enhance(CONTRAST)
+    image = ImageEnhance.Sharpness(image).enhance(SHARPNESS)
 
-    image = ImageEnhance.Contrast(
-        image
-    ).enhance(1.25)
-
-    # --------------------------------------------------------
-    # Resize
-    # --------------------------------------------------------
-
+    # Resize to a dense character grid.
     image = image.resize(
         (COLS, ROWS),
         Image.Resampling.LANCZOS
     )
 
-    pixels = image.load()
-
+    pixels = list(image.getdata())
     lines = []
 
-    # --------------------------------------------------------
-    # Convert brightness -> ASCII
-    # --------------------------------------------------------
+    for row in range(ROWS):
+        line = []
 
-    for y in range(ROWS):
+        for col in range(COLS):
+            brightness = pixels[row * COLS + col]
 
-        line = ""
-
-        for x in range(COLS):
-
-            brightness = pixels[x, y]
-
-            index = int(
+            # Dark source pixels get dense characters.
+            index = round(
                 (255 - brightness)
                 / 255
                 * (len(RAMP) - 1)
             )
 
-            index = max(
-                0,
-                min(index, len(RAMP) - 1)
-            )
+            line.append(RAMP[index])
 
-            line += RAMP[index]
-
-        lines.append(line)
+        lines.append("".join(line))
 
     return lines
 
 
 # ============================================================
-# ASCII -> ANIMATED SVG
+# CREATE ANIMATED SVG
 # ============================================================
 
-def make_svg(lines, output_path):
+def create_svg(lines):
+    width = COLS * CHAR_WIDTH + 40
+    height = ROWS * CHAR_HEIGHT + 40
 
-    width = COLS * CHAR_WIDTH
-    height = ROWS * CHAR_HEIGHT
+    svg = [
+        (
+            '<svg xmlns="http://www.w3.org/2000/svg" '
+            'xmlns:xlink="http://www.w3.org/1999/xlink" '
+            f'width="{width}" height="{height}" '
+            f'viewBox="0 0 {width} {height}">'
+        ),
+        f'<rect width="100%" height="100%" fill="{BACKGROUND}"/>',
+    ]
 
-    svg = []
-
-    # --------------------------------------------------------
-    # SVG HEADER
-    # --------------------------------------------------------
-
-    svg.append(
-        f'''<?xml version="1.0" encoding="UTF-8"?>
-
-<svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="{width}"
-    height="{height}"
-    viewBox="0 0 {width} {height}"
-    xml:space="preserve">
-
-    <rect
-        width="100%"
-        height="100%"
-        fill="{BACKGROUND}"
-    />
-
-    <style>
-
-        .ascii {{
-            font-family: "Courier New", monospace;
-            font-size: {CHAR_HEIGHT}px;
-            fill: {TEXT_COLOR};
-            font-weight: 400;
-        }}
-
-        .cursor {{
-            fill: {CURSOR_COLOR};
-        }}
-
-    </style>
-'''
-    )
-
-    # --------------------------------------------------------
-    # CREATE EACH ROW
-    # --------------------------------------------------------
-
+    # Render each line separately for a typing/reveal effect.
     for row, line in enumerate(lines):
-
-        y = (row + 1) * CHAR_HEIGHT
-
-        clip_id = f"clip-row-{row}"
+        x = 20
+        y = 20 + (row + 1) * CHAR_HEIGHT
 
         delay = row * ROW_DELAY
 
-        # ----------------------------------------------------
-        # CLIP PATH
-        # ----------------------------------------------------
-
         svg.append(
-            f'''
-    <clipPath id="{clip_id}">
-
-        <rect
-            x="0"
-            y="{row * CHAR_HEIGHT}"
-            width="0"
-            height="{CHAR_HEIGHT}">
-
-            <animate
-                attributeName="width"
-                from="0"
-                to="{width}"
-                begin="{delay:.2f}s"
-                dur="{ROW_DURATION}s"
-                fill="freeze"
-            />
-
-        </rect>
-
-    </clipPath>
-'''
+            f'<text x="{x}" y="{y}" '
+            f'fill="{TEXT_COLOR}" '
+            f'font-family="monospace" '
+            f'font-size="{FONT_SIZE}" '
+            f'letter-spacing="0" '
+            f'xml:space="preserve" opacity="0">'
+            f'{escape(line)}'
+            f'<animate attributeName="opacity" '
+            f'from="0" to="1" '
+            f'begin="{delay:.3f}s" '
+            f'dur="{ROW_DURATION}s" '
+            f'fill="freeze"/>'
+            f'</text>'
         )
 
-        escaped_line = html.escape(line)
+    # Blinking cursor at the bottom.
+    cursor_x = 20
+    cursor_y = 20 + (ROWS + 1) * CHAR_HEIGHT
 
-        # ----------------------------------------------------
-        # ASCII ROW
-        # ----------------------------------------------------
-
-        svg.append(
-            f'''
-    <text
-        x="0"
-        y="{y}"
-        class="ascii"
-        clip-path="url(#{clip_id})"
-        xml:space="preserve">{escaped_line}</text>
-'''
-        )
-
-        # ----------------------------------------------------
-        # CURSOR
-        # ----------------------------------------------------
-
-        svg.append(
-            f'''
-    <rect
-        class="cursor"
-        x="0"
-        y="{row * CHAR_HEIGHT}"
-        width="4"
-        height="{CHAR_HEIGHT - 1}"
-        opacity="0">
-
-        <animate
-            attributeName="x"
-            from="0"
-            to="{width}"
-            begin="{delay:.2f}s"
-            dur="{ROW_DURATION}s"
-            fill="freeze"
-        />
-
-        <animate
-            attributeName="opacity"
-            values="0;1;1;0"
-            keyTimes="0;0.05;0.9;1"
-            begin="{delay:.2f}s"
-            dur="{ROW_DURATION}s"
-            fill="freeze"
-        />
-
-    </rect>
-'''
-        )
+    svg.append(
+        f'<rect x="{cursor_x}" y="{cursor_y}" '
+        f'width="8" height="{CHAR_HEIGHT}" '
+        f'fill="{CURSOR_COLOR}">'
+        '<animate attributeName="opacity" '
+        'values="1;0;1" dur="1s" '
+        'repeatCount="indefinite"/>'
+        '</rect>'
+    )
 
     svg.append("</svg>")
 
-    # --------------------------------------------------------
-    # SAVE
-    # --------------------------------------------------------
-
-    with open(
-        output_path,
-        "w",
-        encoding="utf-8"
-    ) as file:
-
-        file.write(
-            "\n".join(svg)
-        )
-
-    print()
-    print("======================================")
-    print(" Animated ASCII SVG created!")
-    print("======================================")
-    print(f"Output : {output_path}")
-    print(f"Size   : {width} x {height}")
-    print()
+    return "\n".join(svg)
 
 
 # ============================================================
@@ -287,39 +202,25 @@ def make_svg(lines, output_path):
 # ============================================================
 
 def main():
+    image_path = find_input_image()
 
-    if len(sys.argv) != 3:
+    print("Converting image to dense ASCII...")
+    lines = image_to_ascii(image_path)
 
-        print()
-        print("Usage:")
-        print()
-        print(
-            "python3 scripts/make_ascii_svg.py "
-            "source-photo.png rajat-ascii.svg"
-        )
-        print()
+    print("Creating animated SVG...")
+    svg = create_svg(lines)
 
-        sys.exit(1)
-
-    input_path = sys.argv[1]
-    output_path = sys.argv[2]
-
-    print()
-    print("======================================")
-    print(" RajatMani35 ASCII Portrait")
-    print("======================================")
-    print()
-
-    lines = image_to_ascii(
-        input_path
+    OUTPUT_FILE.write_text(
+        svg,
+        encoding="utf-8"
     )
 
-    print("Generating animated SVG...")
-
-    make_svg(
-        lines,
-        output_path
-    )
+    print()
+    print("ASCII portrait generated successfully!")
+    print(f"Input:  {image_path}")
+    print(f"Output: {OUTPUT_FILE}")
+    print(f"Grid:   {COLS} columns x {ROWS} rows")
+    print("Style:  white text on black background")
 
 
 if __name__ == "__main__":
