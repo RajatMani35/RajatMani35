@@ -10,12 +10,12 @@
 <table>
 <tr>
 
-<td width="45%" align="center">
+<!-- <td width="45%" align="center">
 <img src="./rajat-ascii.svg" width="380"/>
-</td>
+</td> -->
 
-<td width="55%" align="center">
-<img src="./rajat-info.svg" width="500"/>
+<!-- <td width="55%" align="center"> -->
+<!-- <img src="./rajat-info.svg" width="500"/> -->
 </td>
 
 </tr>
@@ -23,7 +23,6 @@
 
 <br><br>
 
-<h3><code>rajat@github ~ $ connect</code></h3>
 
 <p>
 <a href="https://github.com/RajatMani35">GitHub</a>
