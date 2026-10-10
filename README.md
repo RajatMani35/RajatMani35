@@ -8,16 +8,19 @@
 <br><br>
 
 
-
-<p>
-<a href="https://github.com/RajatMani35">GitHub</a>
-&nbsp; • &nbsp;
-<a href="https://leetcode.com/u/RajatMani/">LeetCode</a>
-&nbsp; • &nbsp;
-<a href="https://www.linkedin.com/in/rajat-tripathi-663b27312/">LinkedIn</a>
+<p align="center">
+  <a href="https://github.com/RajatMani35">
+    <img src="https://skillicons.dev/icons?i=github" height="40" alt="GitHub" />
+  </a>
+  &nbsp;&nbsp;&nbsp;
+  <a href="https://leetcode.com/u/RajatMani/">
+    <img src="https://cdn.simpleicons.org/leetcode/FFA116" height="40" alt="LeetCode" />
+  </a>
+  &nbsp;&nbsp;&nbsp;
+  <a href="https://www.linkedin.com/in/rajat-tripathi-663b27312/">
+    <img src="https://skillicons.dev/icons?i=linkedin" height="40" alt="LinkedIn" />
+  </a>
 </p>
-
-</div>
 
 <!-- <table>
 <tr>
@@ -33,4 +36,4 @@
 </tr>
 </table>
 
-<br><br> --> -->
+<br><br>
