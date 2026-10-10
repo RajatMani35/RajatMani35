@@ -265,7 +265,7 @@
                     width="13"
                     height="13"
                     rx="3"
-                    fill="#0e4429"
+                    fill="#006d32"
                     opacity="0">
 
                     <title>
@@ -7515,7 +7515,7 @@
                     width="13"
                     height="13"
                     rx="3"
-                    fill="#006d32"
+                    fill="#39d353"
                     opacity="0">
 
                     <title>
@@ -7590,7 +7590,7 @@
                     width="13"
                     height="13"
                     rx="3"
-                    fill="#0e4429"
+                    fill="#006d32"
                     opacity="0">
 
                     <title>
@@ -8165,7 +8165,7 @@
                     width="13"
                     height="13"
                     rx="3"
-                    fill="#0e4429"
+                    fill="#006d32"
                     opacity="0">
 
                     <title>
@@ -9140,7 +9140,7 @@
                     width="13"
                     height="13"
                     rx="3"
-                    fill="#006d32"
+                    fill="#39d353"
                     opacity="0">
 
                     <title>
@@ -9165,7 +9165,7 @@
                     width="13"
                     height="13"
                     rx="3"
-                    fill="#006d32"
+                    fill="#39d353"
                     opacity="0">
 
                     <title>
@@ -9215,7 +9215,7 @@
                     width="13"
                     height="13"
                     rx="3"
-                    fill="#26a641"
+                    fill="#39d353"
                     opacity="0">
 
                     <title>
@@ -9240,7 +9240,7 @@
                     width="13"
                     height="13"
                     rx="3"
-                    fill="#0e4429"
+                    fill="#006d32"
                     opacity="0">
 
                     <title>
@@ -9265,11 +9265,11 @@
                     width="13"
                     height="13"
                     rx="3"
-                    fill="#0e4429"
+                    fill="#39d353"
                     opacity="0">
 
                     <title>
-                        2 contributions on 2026-10-09
+                        7 contributions on 2026-10-09
                     </title>
 
                     <animate
@@ -9290,11 +9290,11 @@
                     width="13"
                     height="13"
                     rx="3"
-                    fill="#161b22"
+                    fill="#39d353"
                     opacity="0">
 
                     <title>
-                        0 contributions on 2026-10-10
+                        21 contributions on 2026-10-10
                     </title>
 
                     <animate
@@ -9386,9 +9386,9 @@
             font-family="monospace"
             font-size="15">
 
-            43 contributions
-            • 6 day current streak
-            • 6 day longest streak
+            69 contributions
+            • 7 day current streak
+            • 7 day longest streak
 
         </text>
         
