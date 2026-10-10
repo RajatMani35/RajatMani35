@@ -7,21 +7,6 @@
 
 <br><br>
 
-<table>
-<tr>
-
-<!-- <td width="45%" align="center">
-<img src="./rajat-ascii.svg" width="380"/>
-</td> -->
-
-<!-- <td width="55%" align="center"> -->
-<!-- <img src="./rajat-info.svg" width="500"/> -->
-</td>
-
-</tr>
-</table>
-
-<br><br>
 
 
 <p>
@@ -33,3 +18,19 @@
 </p>
 
 </div>
+
+<!-- <table>
+<tr>
+
+<!-- <td width="45%" align="center">
+<img src="./rajat-ascii.svg" width="380"/>
+</td> -->
+
+<!-- <td width="55%" align="center"> -->
+<!-- <img src="./rajat-info.svg" width="500"/> -->
+<!-- </td>
+
+</tr>
+</table>
+
+<br><br> --> -->
