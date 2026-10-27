@@ -1,11 +1,11 @@
-<h1 align="center">
+<!-- <h1 align="center">
   <a href="https://git.io/typing-svg">
     <img src="https://readme-typing-svg.herokuapp.com/?font=Righteous&size=35&center=true&vCenter=true&width=600&height=70&duration=4000&lines=Hi+There!+%F0%9F%91%8B;I'm+Rajat+Mani+Tripathi!" />
   </a>
 </h1>
 <!-- <img src="./rajat-heatmap.svg" width="860"/> -->
-<br><br>
-
+<!-- <br><br>
+ --> -->
 
 
 <p align="center">
